@@ -1,0 +1,16 @@
+---
+- name: Deploy Maven artifact to remote server
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Ensure target directory exists
+      file:
+        path: /opt/myapp
+        state: directory
+        mode: '0755'
+
+    - name: Copy JAR to remote server
+      copy:
+        src: target/myapp.jar
+        dest: /opt/myapp/myapp.jar
+        mode: '0644'
